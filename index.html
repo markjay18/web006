@@ -245,7 +245,7 @@
           <div data-bs-spy="scroll" data-bs-target="#list-example" data-bs-offset="0" class="scrollspy" tabindex="0">
             <p class="ex">✅ Redis -> recommended (cache)</p>
             <div class="list-item-design copy-container"><button id="copy-code" class="copy-code"><svg xmlns="http://www.w3.org/2000/svg" class="svg-copy" width="16" height="16" viewBox="0 0 448 512"><!--!Font Awesome Free v5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M320 448v40c0 13.255-10.745 24-24 24H24c-13.255 0-24-10.745-24-24V120c0-13.255 10.745-24 24-24h72v296c0 30.879 25.121 56 56 56h168zm0-344V0H152c-13.255 0-24 10.745-24 24v368c0 13.255 10.745 24 24 24h272c13.255 0 24-10.745 24-24V128H344c-13.2 0-24-10.8-24-24zm120.971-31.029L375.029 7.029A24 24 0 0 0 358.059 0H352v96h96v-6.059a24 24 0 0 0-7.029-16.97z"/></svg> <span id="copyText" class="copyText">Copy code</span></button>  
-              <pre class="card-text txt" id="list-item-1">
+              <pre class="card-text txt codeText" id="list-item-1">
              
   public function search(Request $request)
   {
@@ -263,7 +263,7 @@
             <p class="bullet">● Works perfect for less than 100ms APIs</p>
             <p class="ex">✅ Create your Controller, FULL SOURCE CODE (Redis search cache)</p>
             <div class="list-item-design copy-container"><button id="copy-code" class="copy-code"><svg xmlns="http://www.w3.org/2000/svg" class="svg-copy" width="16" height="16" viewBox="0 0 448 512"><!--!Font Awesome Free v5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M320 448v40c0 13.255-10.745 24-24 24H24c-13.255 0-24-10.745-24-24V120c0-13.255 10.745-24 24-24h72v296c0 30.879 25.121 56 56 56h168zm0-344V0H152c-13.255 0-24 10.745-24 24v368c0 13.255 10.745 24 24 24h272c13.255 0 24-10.745 24-24V128H344c-13.2 0-24-10.8-24-24zm120.971-31.029L375.029 7.029A24 24 0 0 0 358.059 0H352v96h96v-6.059a24 24 0 0 0-7.029-16.97z"/></svg> <span id="copyText" class="copyText">Copy code</span></button> 
-              <pre class="card-text txt" id="list-item-2">
+              <pre class="card-text txt codeText" id="list-item-2">
   &lt;?php
   namespace App\Http\Controllers;
 
@@ -304,7 +304,7 @@
             </div>
             <p class="ex">✅ Clear Cache When a Post Changes in your Post model</p>
             <div class="list-item-design copy-container"><button id="copy-code" class="copy-code"><svg xmlns="http://www.w3.org/2000/svg" class="svg-copy" width="16" height="16" viewBox="0 0 448 512"><!--!Font Awesome Free v5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M320 448v40c0 13.255-10.745 24-24 24H24c-13.255 0-24-10.745-24-24V120c0-13.255 10.745-24 24-24h72v296c0 30.879 25.121 56 56 56h168zm0-344V0H152c-13.255 0-24 10.745-24 24v368c0 13.255 10.745 24 24 24h272c13.255 0 24-10.745 24-24V128H344c-13.2 0-24-10.8-24-24zm120.971-31.029L375.029 7.029A24 24 0 0 0 358.059 0H352v96h96v-6.059a24 24 0 0 0-7.029-16.97z"/></svg> <span id="copyText" class="copyText">Copy code</span></button>
-              <pre class="card-text txt" id="list-item-3">
+              <pre class="card-text txt codeText" id="list-item-3">
   protected static function booted()
   {
       static::saved(function () {
@@ -378,32 +378,35 @@
   </script>
 
   <script>
-  document.querySelectorAll('.copy-container').forEach(container => {
-      const copyButton = container.querySelector(".copy-code");
-      const svg = copyButton.querySelector(".svg-copy");
-      const copyText = container.querySelector(".copyText");
-      const contentToCopy = container.dataset.copy;
 
-      copyButton.addEventListener("click", () => {
-        navigator.clipboard.writeText(contentToCopy)
-          .then(() => {
-            const originalPath = svg.innerHTML;
-            const originalText = copyText.innerText;
-            // Change to checkmark SVG path
-            svg.innerHTML = '<path d="M173.898 439.404l-166.4-166.4c-12.496-12.496-12.496-32.758 0-45.254l22.627-22.627c12.496-12.496 32.758-12.497 45.254 0L192 312.69l243.021-243.02c12.496-12.496 32.758-12.497 45.254 0l22.627 22.627c12.496 12.496 12.496 32.758 0 45.254l-307.2 307.2c-12.497 12.497-32.759 12.497-45.254-.001z"/>';
-            copyText.innerText = "Copied!";
-            // Revert back after 2 seconds
-            setTimeout(() => {
-              svg.innerHTML = originalPath;
-              copyText.innerText = originalText;
-            }, 2000);
-          })
-          .catch(err => console.log(err));
-      });
+  document.querySelectorAll('.copy-container').forEach(container => {
+    const copyButton = container.querySelector(".copy-code");
+    const svg = copyButton.querySelector(".svg-copy");
+    const codeText = container.querySelector(".codeText"); // PRE element
+    const contentToCopy = codeText.innerText.trim();       // FIXED
+
+    copyButton.addEventListener("click", () => {
+      navigator.clipboard.writeText(contentToCopy)
+        .then(() => {
+          const originalPath = svg.innerHTML;
+          const originalLabel = copyButton.querySelector(".copyText").innerText;
+
+          svg.innerHTML = '<path d="M173.898 439.404l-166.4-166.4c-12.496-12.496-12.496-32.758 0-45.254l22.627-22.627c12.496-12.496 32.758-12.497 45.254 0L192 312.69l243.021-243.02c12.496-12.496 32.758-12.497 45.254 0l22.627 22.627c12.496 12.496 12.496 32.758 0 45.254l-307.2 307.2c-12.497 12.497-32.759 12.497-45.254-.001z"/>';
+          copyButton.querySelector(".copyText").innerText = "Copied!";
+
+          setTimeout(() => {
+            svg.innerHTML = originalPath;
+            copyButton.querySelector(".copyText").innerText = originalLabel;
+          }, 2000);
+        })
+        .catch(err => console.log(err));
+    });
   });
+
   </script>
 
 </html>
+
 
 
 
